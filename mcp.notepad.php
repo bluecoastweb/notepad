@@ -35,8 +35,6 @@ class Notepad_mcp {
 	 */
 	public function __construct()
 	{
-		//$this->EE =& get_instance();
-		
 		$this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
 		
 		ee()->cp->set_right_nav(array(
@@ -54,16 +52,8 @@ class Notepad_mcp {
 	 */
 	public function index()
 	{
-		// $this->EE->cp->set_variable('cp_page_title', lang('notepad_module_name'));
-		
-		/**
-		 * This is the addons home page, add more code here!
-		 */		
-
-    // ee()->load->library('javascript');
     ee()->load->library('table');
     ee()->load->helper('form');
-
     ee()->view->cp_page_title = lang('notepad_module_name');
 
     $vars['action_url'] = 'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad'.AMP.'method=update';

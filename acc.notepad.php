@@ -37,11 +37,9 @@ class Notepad_acc {
 	 */
 	public function set_sections()
   {
-    $EE =& get_instance();
-
     $add_edit_href = 'index.php?S=0&D=cp&C=addons_modules&M=show_module_cp&module=notepad';
 
-    $results = $EE->db->query('SELECT id, title, text, updated_at FROM exp_notepad_data ORDER BY id');
+    $results = ee()->db->query('SELECT id, title, text, updated_at FROM exp_notepad_data ORDER BY id');
     
     if ($results->num_rows() > 0) {
 
@@ -54,7 +52,6 @@ class Notepad_acc {
     }
 
     $this->sections['New'] = '<h3><a href="'.$add_edit_href.'">Add new note</a></h3>';
-
   }
 	
 	// ----------------------------------------------------------------
