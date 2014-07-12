@@ -3,45 +3,45 @@
 /**
  * ExpressionEngine - by EllisLab
  *
- * @package		ExpressionEngine
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2003 - 2011, EllisLab, Inc.
- * @license		http://expressionengine.com/user_guide/license.html
- * @link		http://expressionengine.com
- * @since		Version 2.0
+ * @package    ExpressionEngine
+ * @author    ExpressionEngine Dev Team
+ * @copyright  Copyright (c) 2003 - 2011, EllisLab, Inc.
+ * @license    http://expressionengine.com/user_guide/license.html
+ * @link    http://expressionengine.com
+ * @since    Version 2.0
  * @filesource
  */
- 
+
 // ------------------------------------------------------------------------
 
 /**
  * Notepad Module Front End File
  *
- * @package		ExpressionEngine
- * @subpackage	Addons
- * @category	Module
- * @author		Steve Pedersen
- * @link		http://www.bluecoastweb.com
+ * @package    ExpressionEngine
+ * @subpackage  Addons
+ * @category  Module
+ * @author    Steve Pedersen
+ * @link    http://www.bluecoastweb.com
  */
 
 class Notepad {
-	
-	public $return_data;
-	
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		$this->EE =& get_instance();
-	}
-	
-	// ----------------------------------------------------------------
 
-	/**
-	 * Start on your custom code here...
-	 */
-	
+  public $return_data;
+
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    $this->EE =& get_instance();
+  }
+
+  // ----------------------------------------------------------------
+
+  /**
+   * Start on your custom code here...
+   */
+
 }
 /* End of file mod.notepad.php */
 /* Location: /system/expressionengine/third_party/notepad/mod.notepad.php */

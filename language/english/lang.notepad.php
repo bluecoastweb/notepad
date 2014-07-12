@@ -1,15 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$lang = array(	
-	'notepad_module_name' => 'Notepad',
-	'notepad_module_description' => 'Notepad',
-	'module_home' => 'Notepad Home',
-	
+$lang = array(
+  'notepad_module_name' => 'Notepad',
+  'notepad_module_description' => 'Store arbitrary notes in the control panel',
+  'module_home' => 'Notepad',
+
 // Start inserting custom language keys/values here
 
-  'edit_selected' => 'Edit Selected',
-  'delete_selected' => 'Delete Selected',
-  
 );
 
 /* End of file lang.notepad.php */

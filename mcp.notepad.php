@@ -3,55 +3,55 @@
 /**
  * ExpressionEngine - by EllisLab
  *
- * @package		ExpressionEngine
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2003 - 2011, EllisLab, Inc.
- * @license		http://expressionengine.com/user_guide/license.html
- * @link		http://expressionengine.com
- * @since		Version 2.0
+ * @package    ExpressionEngine
+ * @author    ExpressionEngine Dev Team
+ * @copyright  Copyright (c) 2003 - 2011, EllisLab, Inc.
+ * @license    http://expressionengine.com/user_guide/license.html
+ * @link    http://expressionengine.com
+ * @since    Version 2.0
  * @filesource
  */
- 
+
 // ------------------------------------------------------------------------
 
 /**
  * Notepad Module Control Panel File
  *
- * @package		ExpressionEngine
- * @subpackage	Addons
- * @category	Module
- * @author		Steve Pedersen
- * @link		http://www.bluecoastweb.com
+ * @package    ExpressionEngine
+ * @subpackage  Addons
+ * @category  Module
+ * @author    Steve Pedersen
+ * @link    http://www.bluecoastweb.com
  */
 
 class Notepad_mcp {
-	
-	public $return_data;
-	
-	private $_base_url;
-	
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-		$this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
-		
-		ee()->cp->set_right_nav(array(
-			'module_home'	=> $this->_base_url,
-			// Add more right nav items here.
-		));
-	}
-	
-	// ----------------------------------------------------------------
 
-	/**
-	 * Index Function
-	 *
-	 * @return 	void
-	 */
-	public function index()
-	{
+  public $return_data;
+
+  private $_base_url;
+
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    $this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
+
+    ee()->cp->set_right_nav(array(
+      'module_home'  => $this->_base_url,
+      // Add more right nav items here.
+    ));
+  }
+
+  // ----------------------------------------------------------------
+
+  /**
+   * Index Function
+   *
+   * @return   void
+   */
+  public function index()
+  {
     ee()->load->library('table');
     ee()->load->helper('form');
     ee()->view->cp_page_title = lang('notepad_module_name');
@@ -61,7 +61,7 @@ class Notepad_mcp {
     $vars['notes'] = array();
 
     $results = ee()->db->query('SELECT id, title, text FROM exp_notepad_data');
-    
+
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
         $vars['notes'][$row->id] = array(
@@ -72,17 +72,17 @@ class Notepad_mcp {
       }
     }
 
-    return ee()->load->view('index', $vars, TRUE);
-	}
+    return ee()->load->view('mcp_index', $vars, true);
+  }
 
-	/**
-	 * Start on your custom code here...
-	 */
+  /**
+   * Start on your custom code here...
+   */
 
   public function update()
   {
     $data     = array();
-    
+
     // update existing notes
     $results = ee()->db->query('SELECT id FROM exp_notepad_data ORDER BY id ASC');
     if ($results->num_rows() > 0) {

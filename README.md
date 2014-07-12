@@ -1,10 +1,7 @@
 notepad
 =======
 
-Is an ExpressionEngine add-on to store arbitrary text in an Accessory tab.
-
-How-to
-------
+Is an ExpressionEngine add-on to store arbitrary text in a control panel accessory tab.
 
 * Download
 * Unzip
