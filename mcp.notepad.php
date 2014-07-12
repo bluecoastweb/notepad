@@ -39,7 +39,6 @@ class Notepad_mcp {
 
     ee()->cp->set_right_nav(array(
       'module_home'  => $this->_base_url,
-      // Add more right nav items here.
     ));
   }
 

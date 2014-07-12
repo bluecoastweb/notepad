@@ -4,9 +4,6 @@ $lang = array(
   'notepad_module_name' => 'Notepad',
   'notepad_module_description' => 'Store arbitrary notes in the control panel',
   'module_home' => 'Notepad',
-
-// Start inserting custom language keys/values here
-
 );
 
 /* End of file lang.notepad.php */

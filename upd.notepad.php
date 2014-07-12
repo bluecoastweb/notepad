@@ -11,7 +11,7 @@
  * @since    Version 2.0
  * @filesource
  */
- 
+
 // ------------------------------------------------------------------------
 
 /**
@@ -25,21 +25,19 @@
  */
 
 class Notepad_upd {
-  
+
   public $version = '1.0';
-  
-  private $EE;
-  
+
   /**
    * Constructor
    */
   public function __construct()
   {
-    $this->EE =& get_instance();
+    // nothing to see here
   }
-  
+
   // ----------------------------------------------------------------
-  
+
   /**
    * Installation Method
    *
@@ -53,16 +51,9 @@ class Notepad_upd {
       'has_cp_backend'    => "y",
       'has_publish_fields'  => 'n'
     );
-    
-    $this->EE->db->insert('modules', $mod_data);
-    
-    // $this->EE->load->dbforge();
-    /**
-     * In order to setup your custom tables, uncomment the line above, and 
-     * start adding them below!
-     */
+    ee()->db->insert('modules', $mod_data);
 
-    $this->EE->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
+    ee()->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
     $sql = <<<SQL
 CREATE TABLE `exp_notepad_data` (
 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -72,54 +63,40 @@ CREATE TABLE `exp_notepad_data` (
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SQL;
-    $this->EE->db->query($sql);
+    ee()->db->query($sql);
 
-    
     return TRUE;
   }
 
   // ----------------------------------------------------------------
-  
+
   /**
    * Uninstall
    *
    * @return   boolean   TRUE
-   */  
+   */
   public function uninstall()
   {
-    $mod_id = $this->EE->db->select('module_id')
-                ->get_where('modules', array(
-                  'module_name'  => 'Notepad'
-                ))->row('module_id');
-    
-    $this->EE->db->where('module_id', $mod_id)
-           ->delete('module_member_groups');
-    
-    $this->EE->db->where('module_name', 'Notepad')
-           ->delete('modules');
-    
-    // $this->EE->load->dbforge();
-    // Delete your custom tables & any ACT rows 
-    // you have in the actions table
-
-    $this->EE->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
+    $mod_id = ee()->db->select('module_id')->get_where('modules', array('module_name'  => 'Notepad'))->row('module_id');
+    ee()->db->where('module_id', $mod_id)->delete('module_member_groups');
+    ee()->db->where('module_name', 'Notepad')->delete('modules');
+    ee()->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
 
     return TRUE;
   }
-  
+
   // ----------------------------------------------------------------
-  
+
   /**
    * Module Updater
    *
    * @return   boolean   TRUE
-   */  
+   */
   public function update($current = '')
   {
-    // If you have updates, drop 'em in here.
     return TRUE;
   }
-  
+
 }
 /* End of file upd.notepad.php */
 /* Location: /system/expressionengine/third_party/notepad/upd.notepad.php */
