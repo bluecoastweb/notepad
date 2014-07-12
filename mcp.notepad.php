@@ -75,10 +75,6 @@ class Notepad_mcp {
     return ee()->load->view('mcp_index', $vars, true);
   }
 
-  /**
-   * Start on your custom code here...
-   */
-
   public function update()
   {
     $data     = array();
@@ -109,10 +105,11 @@ class Notepad_mcp {
       ));
     }
 
-    ee()->load->dbforge();
     // delete + batch insert is easier than updating
     ee()->db->query('DELETE FROM exp_notepad_data');
-    ee()->db->insert_batch('notepad_data', $data);
+    if (!empty($data)) {
+      ee()->db->insert_batch('notepad_data', $data);
+    }
     ee()->session->set_flashdata('message_success', 'Notes updated');
     ee()->functions->redirect($this->_base_url);
   }

@@ -101,7 +101,9 @@ SQL;
     // $this->EE->load->dbforge();
     // Delete your custom tables & any ACT rows 
     // you have in the actions table
-    
+
+    $this->EE->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
+
     return TRUE;
   }
   
