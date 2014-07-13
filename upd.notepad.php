@@ -57,12 +57,12 @@ class Notepad_upd {
     $this->_ee->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
     $sql = <<<SQL
 CREATE TABLE `exp_notepad_data` (
-`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-`title` varchar(255) NOT NULL,
-`text` varchar(65535) NOT NULL,
-`site_id` int(10) unsigned NOT NULL,
-PRIMARY KEY (`id`),
-KEY `site_id` (`site_id`)
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `text` VARCHAR(65535) NOT NULL,
+  `site_id` INT(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `site_id` (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SQL;
     $this->_ee->db->query($sql);

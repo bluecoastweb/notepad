@@ -37,14 +37,9 @@ class Notepad_mcp {
   public function __construct()
   {
     $this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
-
     $this->_ee = function_exists('ee') ? ee() : get_instance();
-
-    $this->_ee->cp->set_right_nav(array(
-      'module_home'  => $this->_base_url,
-    ));
-
     $this->_site_id = $this->_ee->config->item('site_id');
+    $this->_ee->cp->set_right_nav(array('module_home' => $this->_base_url));
   }
 
   // ----------------------------------------------------------------
