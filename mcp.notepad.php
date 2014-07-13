@@ -27,6 +27,7 @@
 class Notepad_mcp {
 
   public $return_data;
+  private $_base_path;
   private $_base_url;
   private $_ee;
   private $_site_id;
@@ -36,7 +37,8 @@ class Notepad_mcp {
    */
   public function __construct()
   {
-    $this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
+    $this->_base_path = 'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
+    $this->_base_url = BASE.AMP.$this->_base_path;
     $this->_ee = function_exists('ee') ? ee() : get_instance();
     $this->_site_id = $this->_ee->config->item('site_id');
     $this->_ee->cp->set_right_nav(array('module_home' => $this->_base_url));
@@ -55,7 +57,7 @@ class Notepad_mcp {
     $this->_ee->load->helper('form');
     $this->_ee->view->cp_page_title = lang('notepad_module_name');
 
-    $vars['action_url'] = 'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad'.AMP.'method=update';
+    $vars['action_url'] = $this->_base_path.AMP.'method=update';
     $vars['form_hidden'] = null;
     $vars['notes'] = array();
 
