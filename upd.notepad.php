@@ -57,9 +57,9 @@ class Notepad_upd {
     $sql = <<<SQL
 CREATE TABLE `exp_notepad_data` (
 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`site_id` int(10) unsigned NOT NULL,
 `title` varchar(255) NOT NULL,
 `text` varchar(65535) NOT NULL,
-`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SQL;

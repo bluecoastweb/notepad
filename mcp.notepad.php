@@ -29,6 +29,7 @@ class Notepad_mcp {
   public $return_data;
 
   private $_base_url;
+  private $_site_id;
 
   /**
    * Constructor
@@ -40,6 +41,8 @@ class Notepad_mcp {
     ee()->cp->set_right_nav(array(
       'module_home'  => $this->_base_url,
     ));
+
+    $this->_site_id = ee()->config->item('site_id');
   }
 
   // ----------------------------------------------------------------
@@ -59,7 +62,7 @@ class Notepad_mcp {
     $vars['form_hidden'] = null;
     $vars['notes'] = array();
 
-    $results = ee()->db->query('SELECT id, title, text FROM exp_notepad_data');
+    $results = ee()->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
 
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
@@ -79,7 +82,7 @@ class Notepad_mcp {
     $data     = array();
 
     // update existing notes
-    $results = ee()->db->query('SELECT id FROM exp_notepad_data ORDER BY id ASC');
+    $results = ee()->db->query('SELECT id FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
         $id = $row->id;
@@ -88,7 +91,8 @@ class Notepad_mcp {
         if ($title && $text) {
           array_push($data, array(
             'title' => $title,
-            'text' => $text
+            'text' => $text,
+            'site_id' => $this->_site_id
           ));
         }
       }
@@ -100,12 +104,13 @@ class Notepad_mcp {
     if ($title && $text) {
       array_push($data, array(
         'title' => $title,
-        'text' => $text
+        'text' => $text,
+        'site_id' => $this->_site_id
       ));
     }
 
     // delete + batch insert is easier than updating
-    ee()->db->query('DELETE FROM exp_notepad_data');
+    ee()->db->query('DELETE FROM exp_notepad_data WHERE site_id = ?', array($this->_site_id));
     if (!empty($data)) {
       ee()->db->insert_batch('notepad_data', $data);
     }

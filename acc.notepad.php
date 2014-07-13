@@ -38,11 +38,11 @@ class Notepad_acc {
   public function set_sections()
   {
     $vars['href'] = 'index.php?S=0&D=cp&C=addons_modules&M=show_module_cp&module=notepad';
-    $results = ee()->db->query('SELECT id, title, text, updated_at FROM exp_notepad_data ORDER BY id');
+    $site_id = ee()->config->item('site_id');
+    $results = ee()->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($site_id));
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
         $vars['text'] = $row->text;
-        $vars['date'] = $row->updated_at;
         $this->sections[$row->title] = ee()->load->view('acc_note', $vars, true);
       }
     } else {
