@@ -27,8 +27,8 @@
 class Notepad_mcp {
 
   public $return_data;
-
   private $_base_url;
+  private $_ee;
   private $_site_id;
 
   /**
@@ -38,11 +38,13 @@ class Notepad_mcp {
   {
     $this->_base_url = BASE.AMP.'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad';
 
-    ee()->cp->set_right_nav(array(
+    $this->_ee = function_exists('ee') ? ee() : get_instance();
+
+    $this->_ee->cp->set_right_nav(array(
       'module_home'  => $this->_base_url,
     ));
 
-    $this->_site_id = ee()->config->item('site_id');
+    $this->_site_id = $this->_ee->config->item('site_id');
   }
 
   // ----------------------------------------------------------------
@@ -54,15 +56,15 @@ class Notepad_mcp {
    */
   public function index()
   {
-    ee()->load->library('table');
-    ee()->load->helper('form');
-    ee()->view->cp_page_title = lang('notepad_module_name');
+    $this->_ee->load->library('table');
+    $this->_ee->load->helper('form');
+    $this->_ee->view->cp_page_title = lang('notepad_module_name');
 
     $vars['action_url'] = 'C=addons_modules'.AMP.'M=show_module_cp'.AMP.'module=notepad'.AMP.'method=update';
     $vars['form_hidden'] = null;
     $vars['notes'] = array();
 
-    $results = ee()->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
+    $results = $this->_ee->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
 
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
@@ -74,7 +76,7 @@ class Notepad_mcp {
       }
     }
 
-    return ee()->load->view('mcp_index', $vars, true);
+    return $this->_ee->load->view('mcp_index', $vars, true);
   }
 
   public function update()
@@ -82,12 +84,12 @@ class Notepad_mcp {
     $data     = array();
 
     // update existing notes
-    $results = ee()->db->query('SELECT id FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
+    $results = $this->_ee->db->query('SELECT id FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
         $id = $row->id;
-        $title = ee()->input->post("title_$id", true);
-        $text = ee()->input->post("text_$id", true);
+        $title = $this->_ee->input->post("title_$id", true);
+        $text = $this->_ee->input->post("text_$id", true);
         if ($title && $text) {
           array_push($data, array(
             'title' => $title,
@@ -99,8 +101,8 @@ class Notepad_mcp {
     }
 
     // add new note
-    $title = ee()->input->post("title_0", true);
-    $text = ee()->input->post("text_0", true);
+    $title = $this->_ee->input->post("title_0", true);
+    $text = $this->_ee->input->post("text_0", true);
     if ($title && $text) {
       array_push($data, array(
         'title' => $title,
@@ -110,12 +112,12 @@ class Notepad_mcp {
     }
 
     // delete + batch insert is easier than updating
-    ee()->db->query('DELETE FROM exp_notepad_data WHERE site_id = ?', array($this->_site_id));
+    $this->_ee->db->query('DELETE FROM exp_notepad_data WHERE site_id = ?', array($this->_site_id));
     if (!empty($data)) {
-      ee()->db->insert_batch('notepad_data', $data);
+      $this->_ee->db->insert_batch('notepad_data', $data);
     }
-    ee()->session->set_flashdata('message_success', 'Notes updated');
-    ee()->functions->redirect($this->_base_url);
+    $this->_ee->session->set_flashdata('message_success', 'Notes updated');
+    $this->_ee->functions->redirect($this->_base_url);
   }
 }
 /* End of file mcp.notepad.php */

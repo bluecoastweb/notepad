@@ -38,12 +38,13 @@ class Notepad_acc {
   public function set_sections()
   {
     $vars['href'] = 'index.php?S=0&D=cp&C=addons_modules&M=show_module_cp&module=notepad';
-    $site_id = ee()->config->item('site_id');
-    $results = ee()->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($site_id));
+    $ee = function_exists('ee') ? ee() : get_instance();
+    $site_id = $ee->config->item('site_id');
+    $results = $ee->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($site_id));
     if ($results->num_rows() > 0) {
       foreach($results->result() as $row) {
         $vars['text'] = $row->text;
-        $this->sections[$row->title] = ee()->load->view('acc_note', $vars, true);
+        $this->sections[$row->title] = $ee->load->view('acc_note', $vars, true);
       }
     } else {
       $this->sections['New'] = '<b><a href="'.$vars['href'].'">Add new note</a></b>';

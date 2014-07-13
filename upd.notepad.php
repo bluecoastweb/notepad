@@ -27,13 +27,14 @@
 class Notepad_upd {
 
   public $version = '1.0';
+  private $_ee;
 
   /**
    * Constructor
    */
   public function __construct()
   {
-    // nothing to see here
+    $this->_ee = function_exists('ee') ? ee() : get_instance();
   }
 
   // ----------------------------------------------------------------
@@ -51,9 +52,9 @@ class Notepad_upd {
       'has_cp_backend'    => "y",
       'has_publish_fields'  => 'n'
     );
-    ee()->db->insert('modules', $mod_data);
+    $this->_ee->db->insert('modules', $mod_data);
 
-    ee()->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
+    $this->_ee->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
     $sql = <<<SQL
 CREATE TABLE `exp_notepad_data` (
 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -64,7 +65,7 @@ PRIMARY KEY (`id`),
 KEY `site_id` (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SQL;
-    ee()->db->query($sql);
+    $this->_ee->db->query($sql);
 
     return TRUE;
   }
@@ -78,10 +79,10 @@ SQL;
    */
   public function uninstall()
   {
-    $mod_id = ee()->db->select('module_id')->get_where('modules', array('module_name'  => 'Notepad'))->row('module_id');
-    ee()->db->where('module_id', $mod_id)->delete('module_member_groups');
-    ee()->db->where('module_name', 'Notepad')->delete('modules');
-    ee()->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
+    $mod_id = $this->_ee->db->select('module_id')->get_where('modules', array('module_name'  => 'Notepad'))->row('module_id');
+    $this->_ee->db->where('module_id', $mod_id)->delete('module_member_groups');
+    $this->_ee->db->where('module_name', 'Notepad')->delete('modules');
+    $this->_ee->db->query('DROP TABLE IF EXISTS `exp_notepad_data`');
 
     return TRUE;
   }
