@@ -1,10 +1,10 @@
 notepad
 =======
 
-Is an ExpressionEngine add-on to store arbitrary text in a control panel accessory tab.
+ExpressionEngine2 module to store arbitrary text in a control panel accessory tab.
 
-* Download
-* Unzip
-* Copy to system/expressionengine/third_party
-* Install from Add-ons > Modules
-* Open Notepad accessory tab
+### Usage
+
+1. Download, unzip and move to `system/expressionengine/third_party`.
+2. Install from `Add-ons > Modules`.
+3. Open `Notepad` from the accessory tab in the control panel.
