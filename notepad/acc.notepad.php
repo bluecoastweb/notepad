@@ -48,11 +48,14 @@ class Notepad_acc {
    */
   public function set_sections()
   {
-    $vars['href'] = 'index.php?S=0&D=cp&C=addons_modules&M=show_module_cp&module=notepad';
+    $vars['href'] = $this->data['base_url'] = function_exists('cp_url')
+        ? cp_url('addons_modules/show_module_cp', array('module' => $this->id))
+        : BASE.AMP.'C=addons_modules&amp;M=show_module_cp&amp;module='.$this->id;
     $results = $this->_ee->db->query('SELECT id, title, text FROM exp_notepad_data WHERE site_id = ? ORDER BY id', array($this->_site_id));
     if ($results->num_rows() > 0) {
+      $this->_ee->load->library('typography');
       foreach($results->result() as $row) {
-        $vars['text'] = $row->text;
+        $vars['text'] = $this->_ee->typography->auto_typography(auto_link($row->text, 'both', TRUE));
         $this->sections[$row->title] = $this->_ee->load->view('acc_note', $vars, true);
       }
     } else {
